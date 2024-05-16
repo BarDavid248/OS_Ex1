@@ -2,7 +2,7 @@
 
 #include "memory_latency.h"
 #include "measure.h"
-#include <stdint.h>
+#include <inttypes.h>
 
 #define GALOIS_POLYNOMIAL ((1ULL << 63) | (1ULL << 62) | (1ULL << 60) | (1ULL << 59))
 
@@ -96,7 +96,8 @@ int main(int argc, char* argv[])
     const double FACTOR = strtod(argv[FACTOR_ARG], NULL);
     const uint64_t REPEAT = strtoull(argv[REPEAT_ARG], NULL, 10);
 
-    array_element_t *arr = calloc(MAX_SIZE, sizeof(array_element_t));
+    array_element_t *arr =
+        (array_element_t *) calloc(MAX_SIZE, sizeof(array_element_t));
 
     for (register uint64_t mem_size = 100; mem_size < MAX_SIZE;
          mem_size = (uint64_t) (mem_size * FACTOR)) {
