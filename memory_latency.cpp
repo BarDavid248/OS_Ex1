@@ -17,7 +17,7 @@
  */
 uint64_t nanosectime(struct timespec t)
 {
-    return t.tv_sec * 1000000000LL + t.tv_nsec
+    return t.tv_sec * 1000000000LL + t.tv_nsec;
 }
 
 /**
@@ -65,7 +65,7 @@ struct measurement measure_sequential_latency(uint64_t repeat, array_element_t* 
 
     result.baseline = baseline_per_cycle;
     result.access_time = memory_per_cycle;
-    result.rnd = rnd;
+    result.rnd = num;
     return result;
 
 }
@@ -97,7 +97,11 @@ int main(int argc, char* argv[])
     const uint64_t REPEAT = strtoull(argv[REPEAT_ARG], NULL, 10);
 
     array_element_t *arr =
-        (array_element_t *) calloc(MAX_SIZE, sizeof(array_element_t));
+        (array_element_t *) malloc(MAX_SIZE * sizeof(array_element_t));
+    if (!arr) {
+        printf("Failed, not enough memory\n");
+        return 0;
+    }
 
     for (register uint64_t mem_size = 100; mem_size < MAX_SIZE;
          mem_size = (uint64_t) (mem_size * FACTOR)) {
@@ -110,4 +114,6 @@ int main(int argc, char* argv[])
 
         printf("%" PRIu64 ",%f,%f\n", mem_size, rnd_offset, seq_offset);
     }
+
+    free(arr);
 }
