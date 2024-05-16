@@ -96,8 +96,7 @@ int main(int argc, char* argv[])
     const double FACTOR = strtod(argv[FACTOR_ARG], NULL);
     const uint64_t REPEAT = strtoull(argv[REPEAT_ARG], NULL, 10);
 
-    array_element_t *arr =
-        (array_element_t *) malloc(MAX_SIZE * sizeof(array_element_t));
+    array_element_t *arr = (array_element_t *) malloc(MAX_SIZE);
     if (!arr) {
         printf("Failed, not enough memory\n");
         return 0;
@@ -106,9 +105,9 @@ int main(int argc, char* argv[])
     for (register uint64_t mem_size = 100; mem_size < MAX_SIZE;
          mem_size = (uint64_t) (mem_size * FACTOR)) {
         struct measurement rnd_meas =
-            measure_latency(REPEAT, arr, mem_size, zero);
+            measure_latency(REPEAT, arr, mem_size/sizeof(array_element_t), zero);
         struct measurement seq_meas =
-            measure_sequential_latency(REPEAT, arr, mem_size, zero);
+            measure_sequential_latency(REPEAT, arr, mem_size/sizeof(array_element_t), zero);
         double rnd_offset = rnd_meas.access_time - rnd_meas.baseline;
         double seq_offset = seq_meas.access_time - seq_meas.baseline;
 
