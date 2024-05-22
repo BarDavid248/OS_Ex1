@@ -1,10 +1,33 @@
-Assignment 1
+yoav_strugo, barda
+Yoav Strugo (325991339), Student Name2 (ID2)
+EX: 1
+
+FILES:
+memory_latency.cpp - This file contains our implementation of the exercise.
+
+REMARKS:
+No remarks.
+
+ANSWERS:
+
+Assignment 1:
 The 'WhatIDo' program is pretty simple. It recieves one argument, a string (If
 given any other number of arguments it will exit with an error).
 Then, it creates a directory Welcome, and then creates and opens 3 files Welcome/Welcome, Welcome/To, Welcome/OS-2024.
 It does this by calling the 'open' syscall, which returns the file descriptors 3,4,5 for 'Welcome', 'To' and 'OS-2024' respectively.
-Then the program writes to Welcome/Welcome (fd=3) "{user}\nIf you haven't started read the course guidlines yer --- do it right now!{arg1}", 
+Then the program writes to Welcome/Welcome (fd=3) "{user}\nIf you haven't started read the course guidlines yer --- do it right now!{arg1}",
 where {user} is the username of the user which ran the file, and {arg1} is the argument passed to the program.
 Then it writes to Welcome/To (fd=4) "Start exercises early!"
 Then it writes to Welcome/OS-2024 (fd=5) "Good Luck!".
 After all that it closes the files, removes them, and removes the entire Welcome/ directory.
+
+Assignment 2:
+We can see the throughout the process, the memory latency of the sequential memory access is much faster then
+the random access, because in each memory access, the next array element is much more likely to already exist
+in the cache, in contrast to the random access, where the next element is not likely to be in the cache.
+We can see that the random access time increases as we increase the array size, with the slope gradually
+increasing as we pass the sizes of the memory caches.
+The graph shows that in our system, the affect of the cache misses of the L2 and L3
+caches is much more significant than the L1 cache, as the slope of the random access time increases much more
+rapidly when it reaches their size. Moreover, exceeding the L1 barely makes a difference on the random access
+time.
