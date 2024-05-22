@@ -1,0 +1,10 @@
+Assignment 1
+The 'WhatIDo' program is pretty simple. It recieves one argument, a string (If
+given any other number of arguments it will exit with an error).
+Then, it creates a directory Welcome, and then creates and opens 3 files Welcome/Welcome, Welcome/To, Welcome/OS-2024.
+It does this by calling the 'open' syscall, which returns the file descriptors 3,4,5 for 'Welcome', 'To' and 'OS-2024' respectively.
+Then the program writes to Welcome/Welcome (fd=3) "{user}\nIf you haven't started read the course guidlines yer --- do it right now!{arg1}", 
+where {user} is the username of the user which ran the file, and {arg1} is the argument passed to the program.
+Then it writes to Welcome/To (fd=4) "Start exercises early!"
+Then it writes to Welcome/OS-2024 (fd=5) "Good Luck!".
+After all that it closes the files, removes them, and removes the entire Welcome/ directory.
